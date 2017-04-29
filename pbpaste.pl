@@ -11,9 +11,13 @@ while (1) {
 
     sleep(1);
     my $pbpaste = `pbpaste`;
-    if ($lastpbpaste and $pbpaste ne $lastpbpaste) {
+    if ($lastpbpaste and ($pbpaste ne $lastpbpaste)) {
         $lastpbpaste = $pbpaste;
         print $fh "$pbpaste\n";
+    }   
+    elsif (!$lastpbpaste) {
+        print $fh "$pbpaste\n";
+        $lastpbpaste = $pbpaste;
     }   
 
 }
