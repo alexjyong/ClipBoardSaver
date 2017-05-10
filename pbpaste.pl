@@ -1,8 +1,8 @@
 use strict;
 use warnings;
-print "Pbcopy is running... Ctrl+C to quit\n";
-open (my $fh, ">>", "pbpaste.txt");
-my $lastpbpaste;
+print "ClipBoardSaver is running... Ctrl+C to quit\n";
+open (my $fh, ">>", "ClipBoardSaver.txt");
+my $last_clipboard_contents;
 my $command;
 
 #get the user's OS
@@ -28,15 +28,15 @@ while (1) {
     #wait a second before checking clipboard
     sleep(1);
     #get the command with the OS's clipboard command
-    my $pbpaste = `$command`;
+    my $clipboard_contents = `$command`;
     #if the clipboard contents don't match what we have previously
-    if ($lastpbpaste and ($pbpaste ne $lastpbpaste)) {
-        $lastpbpaste = $pbpaste;
-        print $fh "$pbpaste\n";
+    if ($last_clipboard_contents and ($clipboard_contents ne $lastpbpaste)) {
+        $last_clipboard_contents = $clipboard_contents;
+        print $fh "$clipboard_contents\n";
     }   
     #if nothing has been logged yet, post to file   
-    elsif (!$lastpbpaste) {
-        print $fh "$pbpaste\n";
-        $lastpbpaste = $pbpaste;
+    elsif (!$last_clipboard_contents) {
+        print $fh "$clipboard_contents\n";
+        $last_clipboard_contents = $clipboard_contents;
     }   
 }
