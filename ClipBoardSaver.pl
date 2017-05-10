@@ -10,11 +10,11 @@ my $os = $^O;
 
 #if they are using a Mac
 if ($^O =~ /darwin/) {
-    $command = `pbpaste`;
+    $command = "pbpaste";
 }
 #if they are using windows
 elsif ($^O =~ /MSWin32/) {
-    $command = `paste`;
+    $command = "paste";
 }
 else {
     #apologize for not supporting linux
