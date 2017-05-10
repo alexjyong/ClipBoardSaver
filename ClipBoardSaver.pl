@@ -30,7 +30,7 @@ while (1) {
     #get the command with the OS's clipboard command
     my $clipboard_contents = `$command`;
     #if the clipboard contents don't match what we have previously
-    if ($last_clipboard_contents and ($clipboard_contents ne $lastpbpaste)) {
+    if ($last_clipboard_contents and ($clipboard_contents ne $last_clipboard_contents)) {
         $last_clipboard_contents = $clipboard_contents;
         print $fh "$clipboard_contents\n";
     }   
