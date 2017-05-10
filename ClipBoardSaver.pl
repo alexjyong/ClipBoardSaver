@@ -16,10 +16,14 @@ if ($^O =~ /darwin/) {
 elsif ($^O =~ /MSWin32/) {
     $command = "paste";
 }
-else {
+elsif ($^O =~ /linux/i) {
     #apologize for not supporting linux
-    print "Unsupported operating system. Yes, I know I'm a bad person\n";
+    print "Yes, I know I'm a bad person\n";
     print "for not supporting Linux. I'll get to it!\n";
+    exit(1);
+}
+else {
+    print "Unsupported operating system\n";
     exit(1);
 }
 
