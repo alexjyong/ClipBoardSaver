@@ -1,3 +1,8 @@
+Version 1.1.0 May 14, 2017
+-------------
+- Program now timestamps when something is saved, and will now also
+encrypt phrases that the user askes to be encrypted.
+
 Version 1.0.1 May 10, 2017
 -------------
 - Now supports Windows.
