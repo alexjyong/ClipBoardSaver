@@ -41,18 +41,20 @@ if ($encrypt) {
 
 
 
-#get encrypted strings;
-my @secrets;
-while (my $row = <$secret_file>) {
-    chomp $row;
-    push(@secrets, $row);
-}
+if ($encrypt) {
+    #get encrypted strings;
+    my @secrets;
+    while (my $row = <$secret_file>) {
+        chomp $row;
+        push(@secrets, $row);
+    }
 
-if (!$salt || $salt eq '') {
-    print "Yo, make a salt in the 'salt' file.\n";
-    print "Just type in some random characters on one line\n";
-    print "only and boom, there is your salt.\n";
-    exit(1);
+    if (!$salt || $salt eq '') {
+        print "Yo, make a salt in the 'salt' file.\n";
+        print "Just type in some random characters on one line\n";
+        print "only and boom, there is your salt.\n";
+        exit(1);
+    }
 }
 
 print "ClipBoardSaver is running... Ctrl+C to quit\n";
