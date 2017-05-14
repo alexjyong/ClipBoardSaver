@@ -24,13 +24,22 @@ else {
 }
 
 open (my $secret_file, "<", "secrets.txt") or die "Could not open file!\n";
-open (my $salt_file, "<", "salt") or die "Could not open file!\n";
 
-#get salt.
-while (my $row = <$salt_file>) {
-    chomp $row;
-    $salt = $row;
+my $encrypt;
+if (-e "salt") {
+    $encrypt = 1;
 }
+if ($encrypt) { 
+    open (my $salt_file, "<", "salt") or die "Could not open file!\n";
+    #get salt.
+    while (my $row = <$salt_file>) {
+        chomp $row;
+        $salt = $row;
+    }
+}
+
+
+
 
 #get encrypted strings;
 my @secrets;
@@ -59,15 +68,19 @@ while (1) {
     if ($last_clipboard_contents and ($clipboard_contents ne $last_clipboard_contents)) {
         $last_clipboard_contents = $clipboard_contents;
 
-        $clipboard_contents = _check_if_encrypted($clipboard_contents);
-
+        if ($encrypt) {
+            $clipboard_contents = _check_if_encrypted($clipboard_contents);
+        }
         print $fh "$clipboard_contents  ||  Saved at: $temp\n";
     }   
     #if nothing has been logged yet, post to file   
     elsif (!$last_clipboard_contents) {
-        $clipboard_contents = _check_if_encrypted($clipboard_contents);
-        print $fh "$clipboard_contents  ||  Saved at: $temp\n";
+
         $last_clipboard_contents = $clipboard_contents;
+        if ($encrypt) {
+            $clipboard_contents = _check_if_encrypted($clipboard_contents);
+        }
+        print $fh "$clipboard_contents  ||  Saved at: $temp\n";
     }   
 }
 
