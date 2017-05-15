@@ -1,5 +1,5 @@
 # ClipBoardSaver
-Basic way to save clipboard history. Currently only works for Mac and Windows. Future versions will support Linux. You will need to have the latest version of Perl installed to run this.
+Basic way to save clipboard history.  You will need to have the latest version of Perl installed to run this. If you are on Linux and are using X Windows, you need to have xclip installed for this to run. 
 
 I take no responsibility for any misuse of this program. I urge all users to inform others if they are using their computer with this script that it is running in the background. I also ask people to be mindful of what they type into strange computers.
 
