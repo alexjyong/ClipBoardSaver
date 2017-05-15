@@ -5,8 +5,8 @@ use POSIX qw(strftime);
 open (my $fh, ">>", "output_clipboard.txt");
 my $last_clipboard_contents;
 my $command;
+my @secrets;
 my $salt;
-my @secrets
 my $secret_file;
 #get the user's OS
 my $os = $^O;
@@ -18,15 +18,28 @@ if ($^O =~ /darwin/) {
 elsif ($^O =~ /MSWin32/) {
     $command = "paste";
 }
-#if they they are using linux
-elsif ($^O =~ /Linux/) {
+elsif ($^O =~ /linux/) {
+
+	#make sure they have it installed:
+	my $test = `xclip -o`;
+	if ($! && $! =~ /No such/) {
+		print "Ruh-oh, looks like you don't have xclip installed.\n";
+		print "You can probably install it with sudo yum install xclip\n";
+		print "if you are in a RPM-based distro, or sudo yum apt-get install\n";
+		print "if you are on a Debian-based distro.\n";
+		exit(1);		
+	}
+	elsif ($!) {
+		print "Error running xclip because of $!\n";
+		exit(1);
+	}
     $command = "xclip -o";
 }
 else {
-    print "Unsupported operating system.";
+    #unsupported operating system
+    print "Unsupported operating system.\n";
     exit(1);
 }
-
 
 
 my $encrypt;
@@ -34,7 +47,7 @@ if (-e "salt") {
     $encrypt = 1;
 }
 if ($encrypt) { 
-    open ($secret_file, "<", "secrets.txt") or die "Could not open file!\n";
+	open ($secret_file, "<", "secrets.txt") or die "Could not open file!\n";
     open (my $salt_file, "<", "salt") or die "Could not open file!\n";
     #get salt.
     while (my $row = <$salt_file>) {
@@ -44,11 +57,8 @@ if ($encrypt) {
 }
 
 
-
-
 if ($encrypt) {
     #get encrypted strings;
-
     while (my $row = <$secret_file>) {
         chomp $row;
         push(@secrets, $row);
