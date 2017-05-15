@@ -32,6 +32,8 @@ Note that this is pretty basic encryption. It's a one-way hash, but nothing is 1
 Future plans:
 
 GUI implementation: (A ways off from now, will probably re do this for Python if so.)
+
 More flexiblity where the file can be ran. Right now, it assumes that you are running the file right in the checkout directory.
+
 Packaging.
 
