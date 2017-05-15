@@ -6,6 +6,7 @@ open (my $fh, ">>", "output_clipboard.txt");
 my $last_clipboard_contents;
 my $command;
 my $salt;
+my @secrets
 #get the user's OS
 my $os = $^O;
 #if they are using a Mac
@@ -43,7 +44,7 @@ if ($encrypt) {
 
 if ($encrypt) {
     #get encrypted strings;
-    my @secrets;
+
     while (my $row = <$secret_file>) {
         chomp $row;
         push(@secrets, $row);
