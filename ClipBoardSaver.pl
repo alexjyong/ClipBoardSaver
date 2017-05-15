@@ -7,6 +7,7 @@ my $last_clipboard_contents;
 my $command;
 my $salt;
 my @secrets
+my $secret_file;
 #get the user's OS
 my $os = $^O;
 #if they are using a Mac
@@ -17,20 +18,23 @@ if ($^O =~ /darwin/) {
 elsif ($^O =~ /MSWin32/) {
     $command = "paste";
 }
+#if they they are using linux
+elsif ($^O =~ /Linux/) {
+    $command = "xclip -o";
+}
 else {
-    #apologize for not supporting linux
-    print "Unsupported operating system. Yes, I know I'm a bad person\n";
-    print "for not supporting Linux. I'll get to it!\n";
+    print "Unsupported operating system.";
     exit(1);
 }
 
-open (my $secret_file, "<", "secrets.txt") or die "Could not open file!\n";
+
 
 my $encrypt;
 if (-e "salt") {
     $encrypt = 1;
 }
 if ($encrypt) { 
+    open ($secret_file, "<", "secrets.txt") or die "Could not open file!\n";
     open (my $salt_file, "<", "salt") or die "Could not open file!\n";
     #get salt.
     while (my $row = <$salt_file>) {
