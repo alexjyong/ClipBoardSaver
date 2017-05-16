@@ -5,7 +5,7 @@ my $salt;
 open (my $fh, "<", "salt")  or die "Could not open file! $!\n";
 
 while (my $row = <$fh>) {
-  chomp $row;
+    chomp $row;
     $salt = $row;
 }
 
