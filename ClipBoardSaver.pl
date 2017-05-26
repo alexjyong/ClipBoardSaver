@@ -110,7 +110,7 @@ sub _check_if_encrypted {
     my $encrypt = crypt($clip, $salt); 
     foreach my $secret (@secrets) {
         if ($secret eq $encrypt) { #if we found an encrypted match, return that
-            return $encrypt;
+            return "<redacted>";
         }
     }
 
